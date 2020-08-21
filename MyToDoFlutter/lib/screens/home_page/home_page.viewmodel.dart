@@ -11,6 +11,15 @@ class HomePageViewModel {
 
   HomePageViewModel(this.repository);
 
+  atualizar() {
+    repository.getAll().then((value) {
+      _toDos.sink.add(value);
+      print('opa2');
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   void dispose() {
     _toDos.close();
   }

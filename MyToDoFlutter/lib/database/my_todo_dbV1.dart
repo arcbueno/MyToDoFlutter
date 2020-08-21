@@ -10,6 +10,7 @@ class MyToDoDbV1 extends MyToDoDatabaseBase {
     batch.execute('DROP TABLE IF EXISTS toDo;');
     batch.execute('''
  CREATE TABLE toDo(
+rowid INTEGER PRIMARY KEY AUTOINCREMENT,
 title TEXT,
 body TEXT,
 done INTEGER);

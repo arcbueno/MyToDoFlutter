@@ -45,7 +45,6 @@ class MyToDoDatabase {
 
   void _onUpgrade(Database db, int oldVersion, int newVersion) async {
     var batch = db.batch();
-
     await batch.commit();
   }
 

@@ -17,7 +17,7 @@ class ToDoModel {
       : rowid = map['rowid'],
         title = map['title'],
         body = map['body'],
-        done = map['rowid'] == 1;
+        done = map['done'] == 1;
 
   Map<String, dynamic> toDb() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
