@@ -20,7 +20,7 @@ class ToDoItemViewModel {
   setTodo(int id) {
     repository.getById(id).then((model) {
       _toDo.sink.add(model);
-      _done.sink.add(model.done);
+      _done.sink.add(model?.done);
     });
   }
 
@@ -39,7 +39,7 @@ class ToDoItemViewModel {
   atualizar() {
     repository.getById(_toDo.value.rowid).then((value) {
       _toDo.sink.add(value);
-      _done.sink.add(value.done);
+      _done.sink.add(value?.done);
     });
   }
 

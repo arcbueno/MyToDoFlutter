@@ -46,7 +46,6 @@ class ToDoGridItem extends StatelessWidget {
               ),
               subtitle: InkWell(
                 onTap: () async {
-                  print('clicou');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
