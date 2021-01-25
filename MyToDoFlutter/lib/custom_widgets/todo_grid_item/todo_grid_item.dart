@@ -6,9 +6,12 @@ import 'package:MyToDoFlutter/service_locator.dart';
 import 'package:flutter/material.dart';
 
 class ToDoGridItem extends StatelessWidget {
+  Key key;
   final int id;
 
-  ToDoGridItem({this.id});
+  ToDoGridItem({this.id}) {
+    key = Key('todo_item_$id');
+  }
 
   final _viewModel = ToDoItemViewModel(repository: getIt.get<ToDoRepository>());
 
@@ -23,47 +26,56 @@ class ToDoGridItem extends StatelessWidget {
           return Container();
         }
 
-        return Container(
-          margin: EdgeInsets.all(5),
-          width: MediaQuery.of(context).size.width / 2,
-          child: Card(
-            elevation: 2,
-            color: snapshot.data.done ? Colors.grey : Color(0xFFFFFF99),
-            child: ListTile(
-              title: StreamBuilder<bool>(
-                stream: _viewModel.done$,
-                builder: (context, snap) {
-                  if (!snap.hasData) return Container();
-                  return CheckboxListTile(
-                    title: Text(snapshot.data.title ?? ""),
-                    value: snap.data,
-                    onChanged: (val) {
-                      _viewModel.inDone.add(val);
-                      _viewModel.update();
-                    },
-                  );
-                },
+        return InkWell(
+          onTap: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TodoDetailScreen(toDo: snapshot.data),
               ),
-              subtitle: InkWell(
-                onTap: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          TodoDetailScreen(toDo: snapshot.data),
-                    ),
-                  ).then((value) {
+            );
+            _viewModel.atualizar();
+          },
+          child: Container(
+            margin: EdgeInsets.all(5),
+            width: MediaQuery.of(context).size.width / 2,
+            child: Card(
+              elevation: 2,
+              color: snapshot.data.done ? Colors.grey : Color(0xFFFFFF99),
+              child: ListTile(
+                title: StreamBuilder<bool>(
+                  stream: _viewModel.done$,
+                  builder: (context, snap) {
+                    if (!snap.hasData) return Container();
+                    return CheckboxListTile(
+                      title: Text(snapshot.data.title ?? ""),
+                      value: snap.data,
+                      onChanged: (val) {
+                        _viewModel.inDone.add(val);
+                        _viewModel.update();
+                      },
+                    );
+                  },
+                ),
+                subtitle: InkWell(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            TodoDetailScreen(toDo: snapshot.data),
+                      ),
+                    );
                     _viewModel.atualizar();
-                  });
-                  _viewModel.atualizar();
-                },
-                child: snapshot.data.body != null
-                    ? Text(
-                        snapshot.data.body,
-                        overflow: TextOverflow.fade,
-                        maxLines: 7,
-                      )
-                    : Container(),
+                  },
+                  child: snapshot.data.body != null
+                      ? Text(
+                          snapshot.data.body,
+                          overflow: TextOverflow.fade,
+                          maxLines: 7,
+                        )
+                      : Container(),
+                ),
               ),
             ),
           ),

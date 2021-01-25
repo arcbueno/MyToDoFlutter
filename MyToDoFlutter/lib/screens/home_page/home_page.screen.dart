@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-                  childAspectRatio: 1 / 1),
+                  childAspectRatio: 2 / 1),
               padding: EdgeInsets.symmetric(vertical: 10),
               itemCount: lista.length,
               itemBuilder: (BuildContext context, int index) {
@@ -46,6 +46,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key('home_button'),
         onPressed: () async {
           await Navigator.of(context)
               .push(

@@ -9,7 +9,6 @@ class ToDoDao extends Dao {
   ToDoDao(MyToDoDatabase appDb) : super(appDb);
 
   Future<ToDoModel> add(ToDoModel model) async {
-    print(model.title);
     await (await appDb.db).insert(tableName, model.toDb(),
         conflictAlgorithm: ConflictAlgorithm.abort);
     return model;
@@ -22,7 +21,6 @@ class ToDoDao extends Dao {
   }
 
   Future<int> update(ToDoModel model) async {
-    print("${model.rowid} ${model.done} ${model.title} ${model.body}");
     return (await appDb.db).update(tableName, model.toDb(),
         where: 'rowid = ?',
         whereArgs: [model.rowid],

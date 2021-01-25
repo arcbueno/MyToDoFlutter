@@ -36,6 +36,7 @@ class TodoNewScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
+                    key: Key('title_new_key'),
                     decoration: const InputDecoration(labelText: 'Title'),
                     onChanged: _viewModel.inTitle.add,
                     validator: (value) {
@@ -44,11 +45,13 @@ class TodoNewScreen extends StatelessWidget {
                       }
                       return null;
                     },
+                    keyboardType: TextInputType.text,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
+                    key: Key('body_new_key'),
                     maxLines: null,
                     onChanged: _viewModel.inBody.add,
                     decoration: const InputDecoration(labelText: 'Text'),
@@ -60,6 +63,7 @@ class TodoNewScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key('new_button'),
         onPressed: () {
           if (formKey.currentState.validate()) {
             _viewModel.save();

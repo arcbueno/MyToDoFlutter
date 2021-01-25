@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:MyToDoFlutter/models/to_do.model.dart';
 import 'package:MyToDoFlutter/repositories/todo.repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,9 +16,8 @@ class HomePageViewModel {
   atualizar() {
     repository.getAll().then((value) {
       _toDos.sink.add(value);
-      print('opa2');
     }).catchError((error) {
-      print(error);
+      log(error);
     });
   }
 
